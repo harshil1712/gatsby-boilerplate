@@ -1,10 +1,11 @@
 {
   "name": "gatsby-starter-default",
   "private": true,
-  "description": "A simple starter to get up and developing quickly with Gatsby",
+  "description": "A simple boilerplate to get up and developing quickly with Gatsby, configured with Husky and Prettier",
   "version": "0.1.0",
-  "author": "Kyle Mathews <mathews.kyle@gmail.com>",
+  "author": "Harshil Agrawal <ghagrawal17@gmail.com>",
   "dependencies": {
+    "clean-dir": "^1.0.3",
     "gatsby": "^2.13.51",
     "gatsby-image": "^2.2.8",
     "gatsby-plugin-manifest": "^2.2.4",
@@ -19,15 +20,28 @@
     "react-helmet": "^5.2.1"
   },
   "devDependencies": {
+    "husky": "^3.0.2",
+    "lint-staged": "^9.2.1",
     "prettier": "^1.18.2"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{js,json,css,md}": [
+      "prettier --write",
+      "git add"
+    ]
   },
   "keywords": [
     "gatsby"
   ],
   "license": "MIT",
   "scripts": {
-    "build": "gatsby build",
-    "develop": "gatsby develop",
+    "build": "cleandir ./.cache && gatsby build",
+    "develop": "cleandir ./.cache && gatsby develop",
     "format": "prettier --write src/**/*.{js,jsx}",
     "start": "npm run develop",
     "serve": "gatsby serve",
